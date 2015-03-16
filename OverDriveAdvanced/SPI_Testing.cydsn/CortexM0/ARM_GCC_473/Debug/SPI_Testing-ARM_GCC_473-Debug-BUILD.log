@@ -1,0 +1,8 @@
+--------------- Build Started: 10/31/2014 12:05:03 Project: SPI_Testing, Configuration: ARM GCC 4.7.3 Debug ---------------
+The code generation step is up to date.
+The compile step is up to date, no work needs to be done.
+The link step is up to date, no work needs to be done.
+cyelftool.exe -S C:\Users\prd005\Documents\GitHub\integrated-robotics-lab-core\MotorDriver\OverDriveAdvanced\SPI_Testing.cydsn\CortexM0\ARM_GCC_473\Debug\SPI_Testing.elf
+Flash used: 5390 of 32768 bytes (16.4 %).
+SRAM used: 1536 of 4096 bytes (37.5 %).
+--------------- Build Succeeded: 10/31/2014 12:05:04 ---------------
