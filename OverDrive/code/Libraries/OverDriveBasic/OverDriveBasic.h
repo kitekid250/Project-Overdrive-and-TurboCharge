@@ -27,29 +27,29 @@
 #define M5PWM 2
 #define M6PWM 3
 
-#define M1EN 30
-#define M1INA 31
-#define M1INB 32
+#define M1EN 47
+#define M1INA 45
+#define M1INB 46
 
-#define M2EN 45
-#define M2INA 47
-#define M2INB 46
+#define M2EN 43
+#define M2INA 45
+#define M2INB 44
 
-#define M3EN 33 
-#define M3INA 35
-#define M3INB 34
+#define M3EN 33
+#define M3INA 32
+#define M3INB 30
 
-#define M4EN 42
-#define M4INA 44
-#define M4INB 43
+#define M4EN 35
+#define M4INA 31
+#define M4INB 34
 
-#define M5EN 37
+#define M5EN 39
 #define M5INA 38
 #define M5INB 36
 
-#define M6EN 39
-#define M6INA 41
-#define M6INB 40
+#define M6EN 40
+#define M6INA 37
+#define M6INB 41
 
 // Constants
 #define ENABLED 1
