@@ -9,55 +9,49 @@ LS7366R::LS7366R(int SSP, int CNT_EN){
   _SS = SSP;
   _EN = CNT_EN;
   _bytes = FOUR_BYTE;
-	  
-  pinMode(_SS, OUTPUT);
-  pinMode(CNT_EN, OUTPUT);
-  digitalWrite(_SS, HIGH);
-
-  SPI.begin();
-
+  
   //  Default Encoder Settings
   //  Clock division factor: 0
   //  Negative index input
   //  free-running count mode
   //  x4 quatrature count mode (four counts per quadrature cycle)
   //  2-byte counter
-	digitalWrite(_SS, LOW);
-	SPI.transfer(0x88);      // Write to MDR0
-	SPI.transfer(X4_QUAD);       
-	digitalWrite(_SS, HIGH);
-	
-	delayMicroseconds(100);
-	
-	digitalWrite(_SS, LOW);
-	SPI.transfer(0x90);      // Write to MDR1
-	SPI.transfer(TWO_BYTE);       
-	digitalWrite(_SS, HIGH);
+  _MDR0 = X4_QUAD;
+  _MDR1 = TWO_BYTE;
+  
+  pinMode(_SS, OUTPUT);
+  pinMode(CNT_EN, OUTPUT);
+  digitalWrite(_SS, HIGH);
 }
 
 
 LS7366R::LS7366R(int SSP, int CNT_EN, byte MDR0, byte MDR1){
+//	  pinMode(9, OUTPUT);
+// digitalWrite(9, HIGH);
 	_SS = SSP;
 	_EN = CNT_EN;
-	  
 	_bytes = MDR1 & 0x3;
-	  
+	_MDR0 = MDR0;	  
+	_MDR1 = MDR1;	  
+	
 	pinMode(_SS, OUTPUT);
 	pinMode(CNT_EN, OUTPUT);
 	digitalWrite(_SS, HIGH);
-	
-	SPI.begin();
+}
 
+void LS7366R::init(){
+    SPI.begin();  
+	
 	digitalWrite(_SS, LOW);
-	SPI.transfer(0x88);      // Write to MDR0
-	SPI.transfer(MDR0);       
+	SPI.transfer(MDR0_REG);      // Write to MDR0
+	SPI.transfer(_MDR0);       
 	digitalWrite(_SS, HIGH);
 	
 	delayMicroseconds(100);
 	
 	digitalWrite(_SS, LOW);
-	SPI.transfer(0x90);      // Write to MDR1
-	SPI.transfer(MDR1);       
+	SPI.transfer(MDR1_REG);      // Write to MDR1
+	SPI.transfer(_MDR1);       
 	digitalWrite(_SS, HIGH);
 }
 
@@ -67,59 +61,23 @@ unsigned long LS7366R::readEncoder(){
   digitalWrite(_SS, LOW);
   
   SPI.transfer(0x60);  // Request count
-  /*
-  unsigned int count_1 = 0;
-  unsigned int count_2 = 0;
-  unsigned int count_3 = 0;
-  unsigned int count_4 = 0;
-  
-  switch(_bytes){
-	case 0:
-		count_1 = SPI.transfer(0x00);
-		count_2 = SPI.transfer(0x00);
-		count_3 = SPI.transfer(0x00);
-		count_4 = SPI.transfer(0x00);
-		break;
-	case 1:
-		count_2 = SPI.transfer(0x00);
-		count_3 = SPI.transfer(0x00);
-		count_4 = SPI.transfer(0x00);
-		break;
-	case 2:
-		count_3 = SPI.transfer(0x00);
-		count_4 = SPI.transfer(0x00);
-		break;
-	default:
-		count_4 = SPI.transfer(0x00);
-		break;		
-	}
-	
-	  digitalWrite(_SS, HIGH);
-
-  // Calculate encoder count
-  count_value = (count_1 << 8) + count_2;
-  count_value = (count_value << 8) + count_3;
-  count_value = (count_value << 8) + count_4;
-	*/
 	
 	// This is not an improper use of switch-case, just clever...
 	switch(_bytes){
-	case 0:
-		count_value = SPI.transfer(0x00);
-		count_value = count_value << 8;
-	case 1:
-		count_value = count_value + SPI.transfer(0x00);
-		count_value = count_value << 8;
-	case 2:
-		count_value = count_value + SPI.transfer(0x00);
-		count_value = count_value << 8;
-	default:
-		count_value = count_value + SPI.transfer(0x00);		
-	}
-  digitalWrite(_SS, HIGH);
-
-  
-
+		case FOUR_BYTE:
+			count_value = SPI.transfer(0x00);
+			count_value = count_value << 8;
+		case THREE_BYTE:
+			count_value = count_value + SPI.transfer(0x00);
+			count_value = count_value << 8;
+		case TWO_BYTE:
+			count_value = count_value + SPI.transfer(0x00);
+			count_value = count_value << 8;
+		default:
+			count_value = count_value + SPI.transfer(0x00);		
+		}
+	digitalWrite(_SS, HIGH);
+	
   return count_value;
 }
 
@@ -202,6 +160,8 @@ unsigned long LS7366R::readOTR(){
 */
 
 // =================================================================================
+
+// DEPRICATED
 long LS7366R::s_readEncoder(){
   // TODO, decide on keeping or not.
   long count_value = 0;

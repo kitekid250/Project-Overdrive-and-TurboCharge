@@ -8,6 +8,7 @@ LS7366R enc1(SS1, CNT_EN);
 
 void setup(){
   Serial.begin(115200);
+  enc1.init();
   enc1.enableEncoder();
 }
 

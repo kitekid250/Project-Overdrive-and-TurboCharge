@@ -13,7 +13,8 @@
 */
 #define SS1 4
 #define CNT_EN 6
-#define LFLAG_VECT 0 // Interrupt Vector for Pin 2 is 0
+#define LFLAG_VECT 0 // Interrupt Vector for Pin 2 is 0 on Uno Turbocharger 
+// and 51 on Due Overdrive
 
 /*
 ** Configure MDR0 with 4x Quadrature Counting, Free Run, and no
@@ -41,6 +42,7 @@ volatile byte flag = 0;
 void setup(){
   Serial.begin(115200);
   Serial.println("Begin");
+  enc1.init();
   // first we clear the interrupt register after init
   enc1.readSTR();
   // enable the encoder counter
