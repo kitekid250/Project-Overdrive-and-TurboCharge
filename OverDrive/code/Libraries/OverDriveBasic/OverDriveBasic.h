@@ -28,7 +28,7 @@
 #define M6PWM 3
 
 #define M1EN 47
-#define M1INA 45
+#define M1INA 42
 #define M1INB 46
 
 #define M2EN 43
