@@ -151,6 +151,8 @@ class LS7366R
 	// void setCounter(unsigned long);
 	// =======================================================================
 	
+    void setCounter(unsigned long);
+
   private:
 	byte _MDR0;
 	byte _MDR1;

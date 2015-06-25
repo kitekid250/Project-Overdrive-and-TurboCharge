@@ -18,6 +18,7 @@ enableEncoder	KEYWORD2
 disableEncoder	KEYWORD2
 writeDTR	KEYWORD2
 readSTR	KEYWORD2
+setCounter KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

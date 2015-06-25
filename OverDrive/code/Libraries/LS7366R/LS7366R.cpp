@@ -1,6 +1,8 @@
 // ALPHA RELEASE
 // prd005
 
+//6_25_2015: Added Set Counter - erp006 
+
 #include <SPI.h>
 #include "LS7366R.h"
 #include "Arduino.h"
@@ -38,6 +40,7 @@ LS7366R::LS7366R(int SSP, int CNT_EN, byte MDR0, byte MDR1){
 	pinMode(CNT_EN, OUTPUT);
 	digitalWrite(_SS, HIGH);
 }
+
 
 void LS7366R::init(){
     SPI.begin();  
@@ -147,11 +150,54 @@ byte LS7366R::readSTR(){
   return ret;
 }
 
-/*
+
 void LS7366R::setCounter(unsigned long set){
-	// TODO implement this.
+	//////////////////////////////////////////////////////
+	//This should be tested for all bytes modes.  I only tried it with 2 byte - WP
+	// Also, this would ideally have a means of ensuring that the input data matches up with the number of bytes that the counter register is using.
+	//		Currently, I just truncate it bitwise, but this could lead to users thinking they pass one number when really it is another.
+	//////////////////////////////////////////////////////
+
+	digitalWrite(_SS, LOW);
+	SPI.transfer(0x98); //Write DTR
+
+	 unsigned char dataOut1 = (set & 0xff000000UL) >> 24;
+	 unsigned char dataOut2 = (set & 0x00ff0000UL) >> 16;
+	 unsigned char dataOut3 = (set & 0x0000ff00UL) >> 8;
+	 unsigned char dataOut4 = (set & 0x000000ffUL);
+
+switch(_bytes){
+	case FOUR_BYTE:
+		SPI.transfer(dataOut1);
+		SPI.transfer(dataOut2);
+		SPI.transfer(dataOut3);
+		SPI.transfer(dataOut4);
+		break;
+	case THREE_BYTE:
+		SPI.transfer(dataOut2);
+		SPI.transfer(dataOut3);
+		SPI.transfer(dataOut4);
+		break;
+	case TWO_BYTE:
+		SPI.transfer(dataOut3);
+		SPI.transfer(dataOut4);
+		break;
+		
+	default: // ONE_BYTE
+		SPI.transfer(dataOut4);
+		break;
+	}
+
+	digitalWrite(_SS, HIGH);  //End command
+	
+	delayMicroseconds(100); //Give adequate time between commands
+
+	digitalWrite(_SS, LOW);
+	SPI.transfer(0xE0);  //Load Counter
+	digitalWrite(_SS, HIGH);
+
 }
-*/
+
 
 /*
 unsigned long LS7366R::readOTR(){
