@@ -1,7 +1,0 @@
-Suggestions from Ward:
-
-1) Make there be a seperate Turbo charge and overdrive library.  Each should have examples that are preloaded, and each should reference the LS7366R library.
-
-2) Put some basic motor control in the examples so users can quickly prove to themselves that motor and encoder control is working.
-
-3) Comment OverDriveBasic.cpp more
