@@ -27,6 +27,8 @@ More boards will be added as they are confirmed operational.
 4. Upload code and verify that the motor ramps up then down.
 
 ##Wiring Diagram
+![TurboCharger System Diagram](http://)
+
 
 ##Advanced Motor Control
 
