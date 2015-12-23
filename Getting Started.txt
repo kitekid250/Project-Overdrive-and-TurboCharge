@@ -1,5 +1,0 @@
-How to install:
-
-1) Download arduino 1.6.6
-2) Once in arduino install the board for the Arduino Due from the "Boards Manager"
-3) Install "OverDrive_Library.ZIP" from the github from the libraries menu

@@ -1,19 +1,22 @@
-// ALPHA RELEASE
-// prd005
+//This example gets a bit more into the nitty gritty of how the code works.
+//Credit for the commenting goes to Phil Diefenderfer
 
 /*
 ** Include the SPI and LS7366R Libraries. Even though we aren't
 ** directly using SPI, we must include it for the LS7366R
 */
 #include <SPI.h>
-#include "LS7366R.h"
+#include <OverDrive_Library.h>
+#include <LS7366R.h>
 
 /* Pin definitions for location of connections
 ** Based on the Bucknell University Turbocharger driver board
-*/
+IGNORE THESE
 #define SS1 4
 #define CNT_EN 6
-#define LFLAG_VECT 0 // Interrupt Vector for Pin 2 is 0
+#define LFLAG_VECT 0 // Interrupt Vector for Pin 2 is 0 on Uno Turbocharger 
+// and 51 on Due Overdrive
+*/
 
 /*
 ** Configure MDR0 with 4x Quadrature Counting, Free Run, and no
@@ -41,6 +44,7 @@ volatile byte flag = 0;
 void setup(){
   Serial.begin(115200);
   Serial.println("Begin");
+  enc1.init();
   // first we clear the interrupt register after init
   enc1.readSTR();
   // enable the encoder counter

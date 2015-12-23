@@ -1,3 +1,15 @@
+TurboChargeBasic	KEYWORD1
+setDirection	KEYWORD2
+setEnable	KEYWORD2
+setPWM	KEYWORD2
+getCurrent	KEYWORD2
+MOTOR1	LITERAL1
+MOTOR2	LITERAL1
+ENABLED	LITERAL1
+DISABLED	LITERAL1
+FORWARD	LITERAL1
+BACKWARD	LITERAL1
+
 #######################################
 # Syntax Coloring Map For PID Library
 #######################################
@@ -18,6 +30,7 @@ enableEncoder	KEYWORD2
 disableEncoder	KEYWORD2
 writeDTR	KEYWORD2
 readSTR	KEYWORD2
+setCounter KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

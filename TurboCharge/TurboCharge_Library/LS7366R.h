@@ -69,6 +69,9 @@
 #define S_MASK 0x01
 // ======================================================
 
+#define MDR0_REG 0x88
+#define MDR1_REG 0x90
+
 class LS7366R
 {
   public:
@@ -97,6 +100,8 @@ class LS7366R
     */
     LS7366R(int, int, byte, byte);
 
+	void init();
+	
     /*
     ** Reads the current encoder count
     **
@@ -140,12 +145,17 @@ class LS7366R
     **
     ** return: SIGNED!!!! long
     */	
+	// DEPRICATED
 	long s_readEncoder(); // Keep this function?
     // unsigned long readOTR();
 	// void setCounter(unsigned long);
 	// =======================================================================
 	
+    void setCounter(unsigned long);
+
   private:
+	byte _MDR0;
+	byte _MDR1;
     int _SS;
     int _EN;
 	int _bytes;
