@@ -1,4 +1,7 @@
-//This is the barebones example, designed to show the basics.  Example 2 talks more about how to control motors to you bidding and Example 3 discusses each of these many settings in detail.  Please note that this example doesn't handle encoder overflow, though Examples 2 and 3 do.
+//This is the barebones example, designed to show the basics.  
+//Example 2 talks more about how to control motors to you bidding.
+//Example 3 discusses each of these many settings in detail.  
+//Please note that this example doesn't handle encoder overflow, though Examples 2 and 3 do.
 
 #include <SPI.h>
 #include <OverDrive_Library.h>
@@ -13,6 +16,7 @@ OverDriveBasic motor1(1);
 void setup(){
   Serial.begin(115200);
   Serial.println("Begin");
+  
   enc1.init();
   enc1.readSTR(); //Clear interrupt register
   enc1.enableEncoder();
@@ -29,5 +33,5 @@ void loop(){
   Serial.print(" Current Encoder Count: ");
   Serial.println(count);  //Print it!
 
-  delay(100);   // delay so we don't flood the serial monitor
+  delay(500);   // delay so we don't flood the serial monitor
 }

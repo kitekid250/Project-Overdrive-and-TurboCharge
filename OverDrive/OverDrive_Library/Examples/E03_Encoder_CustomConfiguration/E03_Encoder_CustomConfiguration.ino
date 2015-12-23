@@ -1,4 +1,5 @@
-//This example gets a bit more into the nitty gritty of how the code works
+//This example gets a bit more into the nitty gritty of how the code works.
+//Credit for the commenting goes to Phil Diefenderfer
 
 /*
 ** Include the SPI and LS7366R Libraries. Even though we aren't
@@ -10,7 +11,7 @@
 
 /* Pin definitions for location of connections
 ** Based on the Bucknell University Turbocharger driver board
-
+IGNORE THESE
 #define SS1 4
 #define CNT_EN 6
 #define LFLAG_VECT 0 // Interrupt Vector for Pin 2 is 0 on Uno Turbocharger 
